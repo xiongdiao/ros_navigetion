@@ -957,10 +957,10 @@ namespace move_base {
                 //we'll try to clear out space with any user-provided recovery behaviors
             case CLEARING:
                 ROS_DEBUG_NAMED("move_base","In clearing/recovery state");
-                ROS_ERROR("move_base In clearing/recovery state");
+                ROS_ERROR("move_base In clearing/recovery state recovery_behavior_enabled_ %d size: %d", recovery_behavior_enabled_, recovery_behaviors_.size() );
                 //we'll invoke whatever recovery behavior we're currently on if they're enabled
-                //if(recovery_behavior_enabled_ && recovery_index_ < recovery_behaviors_.size()){
-                if(1){
+                if(recovery_behavior_enabled_ && recovery_index_ < recovery_behaviors_.size()){
+                //if(1){
                     ROS_DEBUG_NAMED("move_base_recovery","Executing behavior %u of %zu", recovery_index_, recovery_behaviors_.size());
                     recovery_behaviors_[recovery_index_]->runBehavior();
 
@@ -1018,6 +1018,7 @@ namespace move_base {
     }
 
     bool MoveBase::loadRecoveryBehaviors(ros::NodeHandle node){
+        ROS_ERROR("MoveBase::loadRecoveryBehaviors");
         XmlRpc::XmlRpcValue behavior_list;
         if(node.getParam("recovery_behaviors", behavior_list)){
             if(behavior_list.getType() == XmlRpc::XmlRpcValue::TypeArray){
