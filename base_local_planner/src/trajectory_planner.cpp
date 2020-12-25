@@ -518,6 +518,7 @@ namespace base_local_planner{
 
   double TrajectoryPlanner::scoreTrajectory(double x, double y, double theta, double vx, double vy,
       double vtheta, double vx_samp, double vy_samp, double vtheta_samp) {
+    ROS_ERROR("TrajectoryPlanner::scoreTrajectory");
     Trajectory t;
     double impossible_cost = path_map_.obstacleCosts();
     generateTrajectory(x, y, theta,
@@ -933,15 +934,15 @@ namespace base_local_planner{
     goal_map_.setLocalGoal(costmap_, global_plan_);
     ROS_DEBUG("Path/Goal distance computed");
     clock_t end_time =  clock();
-    ROS_WARN("control time : %f *************************", ((double)start_time - (double)end_time)/(double)CLOCKS_PER_SEC);
+    //ROS_WARN("control time : %f *************************", ((double)start_time - (double)end_time)/(double)CLOCKS_PER_SEC);
 
     //rollout trajectories and find the minimum cost one
     Trajectory best = createTrajectories(pos[0], pos[1], pos[2],
         vel[0], vel[1], vel[2],
         acc_lim_x_, acc_lim_y_, acc_lim_theta_);
     ROS_DEBUG("Trajectories created");
-    ROS_WARN("get vel[x y z w]: [%f %f %f %f]*************************", 
-            best.xv_, best.yv_, 0.0001, best.thetav_);
+    //ROS_WARN("get vel[x y z w]: [%f %f %f %f]*************************", best.xv_, best.yv_, 0.0001, best.thetav_);
+    
     /*
     //If we want to print a ppm file to draw goal dist
     char buf[4096];

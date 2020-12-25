@@ -94,6 +94,9 @@ namespace base_local_planner {
        */
       double pointCost(int x, int y) const;
 
+      double lineCostInflation(int x0, int x1, int y0, int y1) const;
+      double pointCostInflation(int x, int y) const;
+
     private:
       const costmap_2d::Costmap2D& costmap_; ///< @brief Allows access of costmap obstacle information
 

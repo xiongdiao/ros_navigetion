@@ -317,7 +317,6 @@ namespace dwa_local_planner {
     std::vector<base_local_planner::Trajectory> all_explored;
     scored_sampling_planner_.findBestTrajectory(result_traj_, &all_explored);
 
-
     if(publish_traj_pc_)
     {
         sensor_msgs::PointCloud2 traj_cloud;

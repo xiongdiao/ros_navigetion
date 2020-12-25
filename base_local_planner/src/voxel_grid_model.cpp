@@ -52,6 +52,7 @@ namespace base_local_planner {
     if(footprint.size() < 3)
       return -1.0;
 
+    ROS_ERROR("VoxelGridModel::footprintCost");
     //now we really have to lay down the footprint in the costmap grid
     unsigned int x0, x1, y0, y1;
     double line_cost = 0.0;

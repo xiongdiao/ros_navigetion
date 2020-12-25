@@ -584,6 +584,7 @@ namespace base_local_planner {
 
 
   double TrajectoryPlannerROS::scoreTrajectory(double vx_samp, double vy_samp, double vtheta_samp, bool update_map){
+    ROS_ERROR("TrajectoryPlannerROS::scoreTrajectory");
     // Copy of checkTrajectory that returns a score instead of True / False
     geometry_msgs::PoseStamped global_pose;
     if(costmap_ros_->getRobotPose(global_pose)){

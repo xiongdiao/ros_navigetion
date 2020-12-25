@@ -62,6 +62,7 @@ PointGrid::PointGrid(double size_x, double size_y, double resolution, geometry_m
       double inscribed_radius, double circumscribed_radius){
     //the half-width of the circumscribed sqaure of the robot is equal to the circumscribed radius
     double outer_square_radius = circumscribed_radius;
+    ROS_ERROR("PointGrid::footprintCost");
 
     //get all the points inside the circumscribed square of the robot footprint
     geometry_msgs::Point c_lower_left, c_upper_right;
