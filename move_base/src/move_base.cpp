@@ -961,6 +961,8 @@ namespace move_base {
                 //we'll invoke whatever recovery behavior we're currently on if they're enabled
                 if(recovery_behavior_enabled_ && recovery_index_ < recovery_behaviors_.size()){
                 //if(1){
+                    ROS_ERROR("set PLANNING 5 index: %d", recovery_index_);
+
                     ROS_DEBUG_NAMED("move_base_recovery","Executing behavior %u of %zu", recovery_index_, recovery_behaviors_.size());
                     recovery_behaviors_[recovery_index_]->runBehavior();
 
@@ -971,7 +973,6 @@ namespace move_base {
                     ROS_DEBUG_NAMED("move_base_recovery","Going back to planning state");
                     last_valid_plan_ = ros::Time::now();
                     planning_retries_ = 0;
-                    ROS_ERROR("set PLANNING 5");
                     state_ = PLANNING;
 
                     //update the index of the next recovery behavior that we'll try
