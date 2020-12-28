@@ -65,7 +65,7 @@ namespace costmap_2d
         if (!enabled_)
           return;
 
-        //ROS_ERROR("CostmapLayer::updateWithMax x/y[%d %d] [%d %d]", min_i, min_j, max_i, max_j);
+        ROS_ERROR("CostmapLayer::updateWithMax x/y[%d %d] [%d %d]", min_i, min_j, max_i, max_j);
 
         unsigned char* master_array = master_grid.getCharMap();
         unsigned int span = master_grid.getSizeInCellsX();
@@ -88,6 +88,35 @@ namespace costmap_2d
         }
     }
 
+    void CostmapLayer::updateWithTmp(costmap_2d::Costmap2D& master_grid, int min_i, int min_j, int max_i, int max_j)
+    {
+        unsigned char* master_array = master_grid.getCharMap();
+        unsigned char* master_tmparray = master_grid.getCharTmpMap();
+        unsigned int span = master_grid.getSizeInCellsX();
+        unsigned int map_size = master_grid.getMapSize();
+
+        ROS_ERROR("CostmapLayer::updateWithTmp x/y[%d %d] [%d %d]", min_i, min_j, max_i, max_j);
+        memcpy(master_tmparray, master_array, map_size);
+
+        for (int j = min_j; j < max_j; j++)
+        {
+            unsigned int it = j * span + min_i;
+            for (int i = min_i; i < max_i; i++)
+            {
+                if (costmap_[it] == NO_INFORMATION){
+                    it++;
+                    continue;
+                }
+
+                unsigned char old_cost = master_array[it];
+                if (old_cost == NO_INFORMATION || old_cost < costmap_[it])
+                  master_tmparray[it] = costmap_[it];
+                it++;
+            }
+        }
+        return;
+    }
+    
     void CostmapLayer::updateWithTrueOverwrite(costmap_2d::Costmap2D& master_grid, int min_i, int min_j,
                 int max_i, int max_j)
     {
@@ -96,7 +125,7 @@ namespace costmap_2d
         unsigned char* master = master_grid.getCharMap();
         unsigned int span = master_grid.getSizeInCellsX();
 
-        //ROS_ERROR("CostmapLayer::updateWithTrueOverwrite");
+        ROS_ERROR("CostmapLayer::updateWithTrueOverwrite");
         for (int j = min_j; j < max_j; j++)
         {
             unsigned int it = span*j+min_i;

@@ -302,7 +302,7 @@ PLUGINLIB_EXPORT_CLASS(costmap_2d::StaticLayer, costmap_2d::Layer)
 
         if (!layered_costmap_->isRolling())
         {
-            //ROS_ERROR("StaticLayer::updateCosts");
+            ROS_ERROR("StaticLayer::updateCosts");
             // if not rolling, the layered costmap (master_grid) has same coordinates as this layer
             if (!use_maximum_)
               updateWithTrueOverwrite(master_grid, min_i, min_j, max_i, max_j);
@@ -342,9 +342,15 @@ PLUGINLIB_EXPORT_CLASS(costmap_2d::StaticLayer, costmap_2d::Layer)
                     if (worldToMap(p.x(), p.y(), mx, my))
                     {
                         if (!use_maximum_)
-                          master_grid.setCost(i, j, getCost(mx, my));
+                        {
+                            master_grid.setCost(i, j, getCost(mx, my));
+                            master_grid.setTmpCost(i, j, getCost(mx, my));
+                        }
                         else
-                          master_grid.setCost(i, j, std::max(getCost(mx, my), master_grid.getCost(i, j)));
+                        {
+                            master_grid.setCost(i, j, std::max(getCost(mx, my), master_grid.getCost(i, j)));
+                            master_grid.setTmpCost(i, j, std::max(getCost(mx, my), master_grid.getCost(i, j)));
+                        }
                     }
                 }
             }

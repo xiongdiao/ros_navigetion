@@ -178,6 +178,7 @@ void GlobalPlanner::clearRobotCell(const geometry_msgs::PoseStamped& global_pose
 
     //set the associated costs in the cost map to be free
     costmap_->setCost(mx, my, costmap_2d::FREE_SPACE);
+    costmap_->setTmpCost(mx, my, costmap_2d::FREE_SPACE);
 }
 
 bool GlobalPlanner::makePlanService(nav_msgs::GetPlan::Request& req, nav_msgs::GetPlan::Response& resp) {
@@ -288,13 +289,15 @@ bool GlobalPlanner::makePlan(const geometry_msgs::PoseStamped& start, const geom
     potential_array_ = new float[nx * ny];
 
     if(outline_map_)
-        outlineMap(costmap_->getCharMap(), nx, ny, costmap_2d::LETHAL_OBSTACLE);
+    {
+        outlineMap(costmap_->getCharTmpMap(), nx, ny, costmap_2d::LETHAL_OBSTACLE);
+    }
 
-    bool found_legal = planner_->calculatePotentials(costmap_->getCharMap(), start_x, start_y, goal_x, goal_y,
+    bool found_legal = planner_->calculatePotentials(costmap_->getCharTmpMap(), start_x, start_y, goal_x, goal_y,
                                                     nx * ny * 2, potential_array_);
 
     if(!old_navfn_behavior_)
-        planner_->clearEndpoint(costmap_->getCharMap(), potential_array_, goal_x_i, goal_y_i, 2);
+        planner_->clearEndpoint(costmap_->getCharTmpMap(), potential_array_, goal_x_i, goal_y_i, 2);
     if(publish_potential_)
         publishPotential(potential_array_);
 

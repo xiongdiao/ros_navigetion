@@ -116,12 +116,28 @@ public:
   unsigned char getCost(unsigned int mx, unsigned int my) const;
 
   /**
+   * @brief  Get the cost of a cell in the costmap
+   * @param mx The x coordinate of the cell
+   * @param my The y coordinate of the cell
+   * @return The cost of the cell
+   */
+  unsigned char getTmpCost(unsigned int mx, unsigned int my) const;
+
+  /**
    * @brief  Set the cost of a cell in the costmap
    * @param mx The x coordinate of the cell
    * @param my The y coordinate of the cell
    * @param cost The cost to set the cell to
    */
   void setCost(unsigned int mx, unsigned int my, unsigned char cost);
+
+  /**
+   * @brief  Set the cost of a cell in the costmap
+   * @param mx The x coordinate of the cell
+   * @param my The y coordinate of the cell
+   * @param cost The cost to set the cell to
+   */
+  void setTmpCost(unsigned int mx, unsigned int my, unsigned char cost);
 
   /**
    * @brief  Convert from map coordinates to world coordinates
@@ -189,8 +205,20 @@ public:
    * @brief  Will return a pointer to the underlying unsigned char array used as the costmap
    * @return A pointer to the underlying unsigned char array storing cost values
    */
+  unsigned int getMapSize() const;
+
+  /**
+   * @brief  Will return a pointer to the underlying unsigned char array used as the costmap
+   * @return A pointer to the underlying unsigned char array storing cost values
+   */
   unsigned char* getCharMap() const;
 
+  /**
+   * @brief  Will return a pointer to the underlying unsigned char array used as the costmap
+   * @return A pointer to the underlying unsigned char array storing cost values
+   */
+  unsigned char* getCharTmpMap() const;
+  
   /**
    * @brief  Accessor for the x size of the costmap in cells
    * @return The x size of the costmap
@@ -424,6 +452,8 @@ protected:
   double origin_x_;
   double origin_y_;
   unsigned char* costmap_;
+  unsigned char* tmp_costmap_;
+  unsigned int  map_size_;
   unsigned char default_value_;
 
   class MarkCell

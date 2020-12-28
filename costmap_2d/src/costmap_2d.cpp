@@ -59,7 +59,10 @@ namespace costmap_2d
         // clean up data
         boost::unique_lock<mutex_t> lock(*access_);
         delete[] costmap_;
+        delete[] tmp_costmap_;
         costmap_ = NULL;
+        tmp_costmap_ = NULL;
+        map_size_ = 0;
     }
 
     void Costmap2D::initMaps(unsigned int size_x, unsigned int size_y)
@@ -67,6 +70,8 @@ namespace costmap_2d
         boost::unique_lock<mutex_t> lock(*access_);
         delete[] costmap_;
         costmap_ = new unsigned char[size_x * size_y];
+        tmp_costmap_ = new unsigned char[size_x * size_y];
+        map_size_ = size_x * size_y;
     }
 
     void Costmap2D::resizeMap(unsigned int size_x, unsigned int size_y, double resolution,
@@ -184,19 +189,40 @@ namespace costmap_2d
         return (unsigned int)cells_dist;
     }
 
+    unsigned int Costmap2D::getMapSize() const
+    {
+        return map_size_;
+    }
+
     unsigned char* Costmap2D::getCharMap() const
     {
         return costmap_;
     }
+    
+    unsigned char* Costmap2D::getCharTmpMap() const
+    {
+        return tmp_costmap_;
+    }
 
     unsigned char Costmap2D::getCost(unsigned int mx, unsigned int my) const
     {
-        return costmap_[getIndex(mx, my)];
+        return tmp_costmap_[getIndex(mx, my)];
+        //return costmap_[getIndex(mx, my)];
     }
 
+    unsigned char Costmap2D::getTmpCost(unsigned int mx, unsigned int my) const
+    {
+        return tmp_costmap_[getIndex(mx, my)];
+    }
+    
     void Costmap2D::setCost(unsigned int mx, unsigned int my, unsigned char cost)
     {
         costmap_[getIndex(mx, my)] = cost;
+    }
+
+    void Costmap2D::setTmpCost(unsigned int mx, unsigned int my, unsigned char cost)
+    {
+        tmp_costmap_[getIndex(mx, my)] = cost;
     }
 
     void Costmap2D::mapToWorld(unsigned int mx, unsigned int my, double& wx, double& wy) const

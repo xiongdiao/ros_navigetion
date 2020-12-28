@@ -182,7 +182,8 @@ PLUGINLIB_EXPORT_CLASS(costmap_2d::InflationLayer, costmap_2d::Layer)
         // make sure the inflation list is empty at the beginning of the cycle (should always be true)
         ROS_ASSERT_MSG(inflation_cells_.empty(), "The inflation list must be empty at the beginning of inflation");
 
-        unsigned char* master_array = master_grid.getCharMap();
+        //unsigned char* master_array = master_grid.getCharMap();
+        unsigned char* master_array = master_grid.getCharTmpMap();
         unsigned int size_x = master_grid.getSizeInCellsX(), size_y = master_grid.getSizeInCellsY();
 
         if (seen_ == NULL) {
@@ -212,6 +213,7 @@ PLUGINLIB_EXPORT_CLASS(costmap_2d::InflationLayer, costmap_2d::Layer)
         min_j = std::max(0, min_j);
         max_i = std::min(int(size_x), max_i);
         max_j = std::min(int(size_y), max_j);
+
 
         // Inflation list; we append cells to visit in a list associated with its distance to the nearest obstacle
         // We use a map<distance, list> to emulate the priority queue used before, with a notable performance boost

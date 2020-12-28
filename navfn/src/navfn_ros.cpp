@@ -174,6 +174,7 @@ namespace navfn {
 
     //set the associated costs in the cost map to be free
     costmap_->setCost(mx, my, costmap_2d::FREE_SPACE);
+    costmap_->setTmpCost(mx, my, costmap_2d::FREE_SPACE);
   }
 
   bool NavfnROS::makePlanService(nav_msgs::GetPlan::Request& req, nav_msgs::GetPlan::Response& resp){
@@ -235,7 +236,7 @@ namespace navfn {
 
     //make sure to resize the underlying array that Navfn uses
     planner_->setNavArr(costmap_->getSizeInCellsX(), costmap_->getSizeInCellsY());
-    planner_->setCostmap(costmap_->getCharMap(), true, allow_unknown_);
+    planner_->setCostmap(costmap_->getCharTmpMap(), true, allow_unknown_);
 
     int map_start[2];
     map_start[0] = mx;

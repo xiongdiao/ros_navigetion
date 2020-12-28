@@ -42,6 +42,7 @@
 #include <pluginlib/class_list_macros.h>
 #include <sensor_msgs/point_cloud2_iterator.h>
 
+
 PLUGINLIB_EXPORT_CLASS(costmap_2d::ObstacleLayer, costmap_2d::Layer)
 
         using costmap_2d::NO_INFORMATION;
@@ -431,18 +432,21 @@ PLUGINLIB_EXPORT_CLASS(costmap_2d::ObstacleLayer, costmap_2d::Layer)
             setConvexPolygonCost(transformed_footprint_, costmap_2d::FREE_SPACE);
         }
 
-        //ROS_ERROR("ObstacleLayer::updateCosts x/y[%d %d] [%d %d]", min_i, min_j, max_i, max_j);
+        ROS_ERROR("ObstacleLayer::updateCosts x/y[%d %d] [%d %d]", min_i, min_j, max_i, max_j);
+
         switch (combination_method_)
         {
             case 0:  // Overwrite
                 updateWithOverwrite(master_grid, min_i, min_j, max_i, max_j);
                 break;
             case 1:  // Maximum
-                updateWithMax(master_grid, min_i, min_j, max_i, max_j);
+                //updateWithMax(master_grid, min_i, min_j, max_i, max_j);
+                updateWithTmp(master_grid, min_i, min_j, max_i, max_j);
                 break;
             default:  // Nothing
                 break;
         }
+        
     }
 
     void ObstacleLayer::addStaticObservation(costmap_2d::Observation& obs, bool marking, bool clearing)

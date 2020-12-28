@@ -144,7 +144,8 @@ namespace costmap_2d
         if (xn < x0 || yn < y0)
           return;
 
-        costmap_.resetMap(x0, y0, xn, yn);
+        ROS_ERROR("Updating area x: [%d, %d] y: [%d, %d]", x0, xn, y0, yn);
+        //costmap_.resetMap(x0, y0, xn, yn);
         for (vector<boost::shared_ptr<Layer> >::iterator plugin = plugins_.begin(); plugin != plugins_.end();
                     ++plugin)
         {
