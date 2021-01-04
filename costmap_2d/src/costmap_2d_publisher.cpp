@@ -136,13 +136,11 @@ namespace costmap_2d
                     saved_origin_x_ != costmap_->getOriginX() ||
                     saved_origin_y_ != costmap_->getOriginY())
         {
-            ROS_ERROR("Costmap2DPublisher::publishCostmap 1");
             prepareGrid();
             costmap_pub_.publish(grid_);
         }
         else if (x0_ < xn_)
         {
-            ROS_ERROR("Costmap2DPublisher::publishCostmap 2");
             boost::unique_lock<Costmap2D::mutex_t> lock(*(costmap_->getMutex()));
             // Publish Just an Update
             map_msgs::OccupancyGridUpdate update;

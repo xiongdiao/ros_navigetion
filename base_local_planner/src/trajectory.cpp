@@ -35,7 +35,7 @@
 
 namespace base_local_planner {
   Trajectory::Trajectory()
-    : xv_(0.0), yv_(0.0), thetav_(0.0), cost_(-1.0)
+    : xv_(0.0), yv_(0.0), thetav_(0.0), cost_(-1.0), max_cell_cost_(0.0)
   {
   }
 

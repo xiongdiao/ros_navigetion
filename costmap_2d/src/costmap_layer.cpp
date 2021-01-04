@@ -65,7 +65,7 @@ namespace costmap_2d
         if (!enabled_)
           return;
 
-        ROS_ERROR("CostmapLayer::updateWithMax x/y[%d %d] [%d %d]", min_i, min_j, max_i, max_j);
+        //ROS_ERROR("CostmapLayer::updateWithMax x/y[%d %d] [%d %d]", min_i, min_j, max_i, max_j);
 
         unsigned char* master_array = master_grid.getCharMap();
         unsigned int span = master_grid.getSizeInCellsX();
@@ -95,7 +95,7 @@ namespace costmap_2d
         unsigned int span = master_grid.getSizeInCellsX();
         unsigned int map_size = master_grid.getMapSize();
 
-        ROS_ERROR("CostmapLayer::updateWithTmp x/y[%d %d] [%d %d]", min_i, min_j, max_i, max_j);
+        //ROS_ERROR("CostmapLayer::updateWithTmp x/y[%d %d] [%d %d]", min_i, min_j, max_i, max_j);
         memcpy(master_tmparray, master_array, map_size);
 
         for (int j = min_j; j < max_j; j++)
@@ -125,7 +125,7 @@ namespace costmap_2d
         unsigned char* master = master_grid.getCharMap();
         unsigned int span = master_grid.getSizeInCellsX();
 
-        ROS_ERROR("CostmapLayer::updateWithTrueOverwrite");
+        //ROS_ERROR("CostmapLayer::updateWithTrueOverwrite");
         for (int j = min_j; j < max_j; j++)
         {
             unsigned int it = span*j+min_i;
@@ -143,7 +143,7 @@ namespace costmap_2d
           return;
         unsigned char* master = master_grid.getCharMap();
         unsigned int span = master_grid.getSizeInCellsX();
-        ROS_ERROR("CostmapLayer::updateWithOverwrite");
+        //ROS_ERROR("CostmapLayer::updateWithOverwrite");
 
         for (int j = min_j; j < max_j; j++)
         {
@@ -163,7 +163,7 @@ namespace costmap_2d
           return;
         unsigned char* master_array = master_grid.getCharMap();
         unsigned int span = master_grid.getSizeInCellsX();
-        ROS_ERROR("CostmapLayer::updateWithAddition");
+        //ROS_ERROR("CostmapLayer::updateWithAddition");
 
         for (int j = min_j; j < max_j; j++)
         {

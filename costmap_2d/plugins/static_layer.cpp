@@ -302,7 +302,7 @@ PLUGINLIB_EXPORT_CLASS(costmap_2d::StaticLayer, costmap_2d::Layer)
 
         if (!layered_costmap_->isRolling())
         {
-            ROS_ERROR("StaticLayer::updateCosts");
+            //ROS_ERROR("StaticLayer::updateCosts");
             // if not rolling, the layered costmap (master_grid) has same coordinates as this layer
             if (!use_maximum_)
               updateWithTrueOverwrite(master_grid, min_i, min_j, max_i, max_j);
@@ -311,7 +311,7 @@ PLUGINLIB_EXPORT_CLASS(costmap_2d::StaticLayer, costmap_2d::Layer)
         }
         else
         {
-            ROS_ERROR("StaticLayer::updateCosts 1");
+            //ROS_ERROR("StaticLayer::updateCosts 1");
             // If rolling window, the master_grid is unlikely to have same coordinates as this layer
             unsigned int mx, my;
             double wx, wy;

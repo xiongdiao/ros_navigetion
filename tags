@@ -1506,6 +1506,7 @@ max	navfn/src/read_pgm_costmap.cpp	41;"	d	file:
 max	voxel_grid/include/voxel_grid/voxel_grid.h	/^  inline unsigned int max(unsigned int x, unsigned int y)$/;"	f	class:voxel_grid::VoxelGrid
 max_beams	amcl/include/amcl/sensors/amcl_laser.h	/^  private: int max_beams;$/;"	m	class:amcl::AMCLLaser
 max_beams_	amcl/src/amcl_node.cpp	/^    int max_beams_, min_particles_, max_particles_;$/;"	m	class:AmclNode	file:
+max_cell_cost_	base_local_planner/include/base_local_planner/trajectory.h	/^      double max_cell_cost_; \/\/\/< @brief The max cost\/score of the trajectory cell$/;"	m	class:base_local_planner::Trajectory
 max_dist_	amcl/src/amcl/map/map_cspace.cpp	/^    double max_dist_;$/;"	m	class:CachedDistanceMap	file:
 max_obs	amcl/include/amcl/sensors/amcl_laser.h	/^  private: int max_obs;$/;"	m	class:amcl::AMCLLaser
 max_obstacle_height_	costmap_2d/include/costmap_2d/observation_buffer.h	/^  double min_obstacle_height_, max_obstacle_height_;$/;"	m	class:costmap_2d::ObservationBuffer
@@ -2115,6 +2116,7 @@ setStruct	costmap_2d/include/costmap_2d/costmap_2d_ros.h	/^  void setStruct(XmlR
 setSumScores	base_local_planner/include/base_local_planner/obstacle_cost_function.h	/^  void setSumScores(bool score_sums){ sum_scores_=score_sums; }$/;"	f	class:base_local_planner::ObstacleCostFunction
 setTargetCells	base_local_planner/src/map_grid.cpp	/^  void MapGrid::setTargetCells(const costmap_2d::Costmap2D& costmap,$/;"	f	class:base_local_planner::MapGrid
 setTargetPoses	base_local_planner/src/map_grid_cost_function.cpp	/^    void MapGridCostFunction::setTargetPoses(std::vector<geometry_msgs::PoseStamped> target_poses) {$/;"	f	class:base_local_planner::MapGridCostFunction
+setTmpCost	costmap_2d/src/costmap_2d.cpp	/^    void Costmap2D::setTmpCost(unsigned int mx, unsigned int my, unsigned char cost)$/;"	f	class:costmap_2d::Costmap2D
 setUnpaddedRobotFootprint	costmap_2d/src/costmap_2d_ros.cpp	/^    void Costmap2DROS::setUnpaddedRobotFootprint(const std::vector<geometry_msgs::Point>& points)$/;"	f	class:costmap_2d::Costmap2DROS
 setUnpaddedRobotFootprintPolygon	costmap_2d/src/costmap_2d_ros.cpp	/^    void Costmap2DROS::setUnpaddedRobotFootprintPolygon(const geometry_msgs::Polygon& footprint)$/;"	f	class:costmap_2d::Costmap2DROS
 setUp	amcl/test/basic_localization.py	/^    def setUp(self):$/;"	m	class:TestBasicLocalization

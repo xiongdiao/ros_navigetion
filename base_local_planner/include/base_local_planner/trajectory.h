@@ -60,6 +60,7 @@ namespace base_local_planner {
       double xv_, yv_, thetav_; ///< @brief The x, y, and theta velocities of the trajectory
 
       double cost_; ///< @brief The cost/score of the trajectory
+      double max_cell_cost_; ///< @brief The max cost/score of the trajectory cell
 
       double time_delta_; ///< @brief The time gap between points
 

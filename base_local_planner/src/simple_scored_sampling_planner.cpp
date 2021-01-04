@@ -76,8 +76,10 @@ namespace base_local_planner {
                 }
             }
             gen_id ++;
+            
         }
 
+        //ROS_WARN("-- traj_cost %f", traj_cost);
         return traj_cost;
     }
 
@@ -85,6 +87,7 @@ namespace base_local_planner {
         Trajectory loop_traj;
         Trajectory best_traj;
         double loop_traj_cost, best_traj_cost = -1;
+        double max_cell_cost = 255;
         bool gen_success;
         int count, count_valid;
         clock_t start_time =  clock();
@@ -108,10 +111,11 @@ namespace base_local_planner {
                     continue;
                 }
                 loop_traj_cost = scoreTrajectory(loop_traj, best_traj_cost);
-                if (all_explored != NULL) {
-                    loop_traj.cost_ = loop_traj_cost;
-                    all_explored->push_back(loop_traj);
-                }
+
+                //if (all_explored != NULL) {
+                //    loop_traj.cost_ = loop_traj_cost;
+                //    all_explored->push_back(loop_traj);
+                //}
 
                 if (loop_traj_cost >= 0) {
                     count_valid++;
@@ -120,6 +124,12 @@ namespace base_local_planner {
                         best_traj = loop_traj;
                     }
                 }
+
+                if (all_explored != NULL) {
+                    loop_traj.cost_ = loop_traj_cost;
+                    all_explored->push_back(loop_traj);
+                }
+
                 count++;
                 if (max_samples_ > 0 && count >= max_samples_) {
                     break;
@@ -136,8 +146,8 @@ namespace base_local_planner {
                     best_traj.getPoint(i, px, py, pth);
                     traj.addPoint(px, py, pth);
                 }
-
             }
+
             ROS_DEBUG("Evaluated %d trajectories, found %d valid", count, count_valid);
             if (best_traj_cost >= 0) {
                 // do not try fallback generators
@@ -145,9 +155,10 @@ namespace base_local_planner {
             }
         }
 
-        clock_t end_time =  clock();
-        //ROS_WARN("control time : %f *************************", ((double)start_time - (double)end_time)/(double)CLOCKS_PER_SEC);
+        //ROS_WARN("final best_traj_cost: %f", best_traj_cost);
+        //ROS_WARN("-----------------------------------------------------");
 
+        clock_t end_time =  clock();
         return best_traj_cost >= 0;
     }
 

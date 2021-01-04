@@ -39,6 +39,7 @@
 #include <cmath>
 #include <Eigen/Core>
 #include <ros/console.h>
+#include <math.h>
 
 namespace base_local_planner {
 
@@ -75,14 +76,13 @@ namespace base_local_planner {
         double cost = 0;
         double scale = getScalingFactor(traj, scaling_speed_, max_trans_vel_, max_scaling_factor_);
         double px, py, pth;
-        //ROS_ERROR("ObstacleCostFunction::scoreTrajectory");
-
+        double level = 0.0;
         if (footprint_spec_.size() == 0) {
             // Bug, should never happen
             ROS_ERROR("Footprint spec is empty, maybe missing call to setFootprint?");
             return -9;
         }
-
+        traj.max_cell_cost_ = 0;
         for (unsigned int i = 0; i < traj.getPointsSize(); ++i) {
             traj.getPoint(i, px, py, pth);
             double f_cost = footprintCost(px, py, pth,
@@ -92,7 +92,10 @@ namespace base_local_planner {
             if(f_cost < 0){
                 return f_cost;
             }
-            //ROS_ERROR("f_cost %f", f_cost);
+
+            if(traj.max_cell_cost_ < f_cost){
+                traj.max_cell_cost_ = f_cost;
+            }
 
             if(sum_scores_){
                 cost +=  (f_cost * f_cost);
@@ -101,6 +104,15 @@ namespace base_local_planner {
                 cost = std::max(cost, f_cost);
             }
         }
+
+        level = 30.0;
+        if(traj.max_cell_cost_ > level)
+        {
+           cost = (abs(cost-level)/40 + 1) * (abs(cost-level)/40 + 1) * cost;
+        }
+
+        //ROS_ERROR("get max_cell_cost_ %f cost: %f", traj.max_cell_cost_, cost);
+
         return cost;
     }
 

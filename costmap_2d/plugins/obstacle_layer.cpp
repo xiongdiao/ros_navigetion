@@ -432,7 +432,7 @@ PLUGINLIB_EXPORT_CLASS(costmap_2d::ObstacleLayer, costmap_2d::Layer)
             setConvexPolygonCost(transformed_footprint_, costmap_2d::FREE_SPACE);
         }
 
-        ROS_ERROR("ObstacleLayer::updateCosts x/y[%d %d] [%d %d]", min_i, min_j, max_i, max_j);
+        //ROS_ERROR("ObstacleLayer::updateCosts x/y[%d %d] [%d %d]", min_i, min_j, max_i, max_j);
 
         switch (combination_method_)
         {

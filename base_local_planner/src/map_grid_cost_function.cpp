@@ -72,7 +72,7 @@ namespace base_local_planner {
         return grid_dist;
     }
 
-    double MapGridCostFunction::scoreTrajectory(Trajectory &traj) {
+   double MapGridCostFunction::scoreTrajectory(Trajectory &traj) {
         double cost = 0.0;
         if (aggregationType_ == Product) {
             cost = 1.0;
@@ -126,7 +126,7 @@ namespace base_local_planner {
                     break;
             }
         }
-        //ROS_ERROR("MapGridCostFunction::scoreTrajectory cost: %f", cost);
+        //ROS_ERROR("MapGridCostFunction::scoreTrajectory aggregationType_: %d cost: %f", aggregationType_, cost);
         return cost;
     }
 
