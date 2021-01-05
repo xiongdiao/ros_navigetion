@@ -108,7 +108,7 @@ namespace base_local_planner {
         level = 30.0;
         if(traj.max_cell_cost_ > level)
         {
-           cost = (abs(cost-level)/40 + 1) * (abs(cost-level)/40 + 1) * cost;
+           //cost = (abs(cost-level)/40 + 1) * (abs(cost-level)/40 + 1) * cost;
         }
 
         //ROS_ERROR("get max_cell_cost_ %f cost: %f", traj.max_cell_cost_, cost);
