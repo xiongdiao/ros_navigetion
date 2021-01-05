@@ -391,7 +391,9 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
                 double* min_x, double* min_y, double* max_x, double* max_y)
     {
         if (layered_costmap_->isRolling())
-          updateOrigin(robot_x - getSizeInMetersX() / 2, robot_y - getSizeInMetersY() / 2);
+        {
+            updateOrigin(robot_x - getSizeInMetersX() / 2, robot_y - getSizeInMetersY() / 2);
+        }
 
         updateCostmap();
 
@@ -427,8 +429,8 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
         if (!enabled_)
           return;
 
-        unsigned char* master_array = master_grid.getCharMap();
-        unsigned char* master_tmparray = master_grid.getCharTmpMap();
+        //unsigned char* master_array = master_grid.getCharMap();
+        unsigned char* master_array = master_grid.getCharTmpMap();
         unsigned int span = master_grid.getSizeInCellsX();
         unsigned char clear = to_cost(clear_threshold_), mark = to_cost(mark_threshold_);
 
@@ -439,11 +441,6 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
             {
                 unsigned char prob = costmap_[it];
                 unsigned char current;
-
-                if(prob != 0)
-                {
-                    //ROS_ERROR("get current prob/mark[%d %d]", prob, mark);
-                }
 
                 if (prob == costmap_2d::NO_INFORMATION)
                 {
@@ -464,11 +461,11 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
                     continue;
                 }
 
-                unsigned char old_cost = master_tmparray[it];
+                unsigned char old_cost = master_array[it];
 
                 if (old_cost == NO_INFORMATION || old_cost < current)
                 {
-                    master_tmparray[it] = current;
+                    master_array[it] = current;
                 }
                 it++;
             }
