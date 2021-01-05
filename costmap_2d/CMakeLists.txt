@@ -55,6 +55,7 @@ generate_dynamic_reconfigure_options(
   cfg/GenericPlugin.cfg
   cfg/InflationPlugin.cfg
   cfg/VoxelPlugin.cfg
+  cfg/RangeSensorLayer.cfg
 )
 
 catkin_package(
@@ -103,6 +104,7 @@ target_link_libraries(costmap_2d
 add_library(layers
   plugins/inflation_layer.cpp
   plugins/obstacle_layer.cpp
+  plugins/range_sensor_layer.cpp
   plugins/static_layer.cpp
   plugins/voxel_layer.cpp
   src/observation_buffer.cpp
