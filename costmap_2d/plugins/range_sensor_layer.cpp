@@ -433,6 +433,10 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
         unsigned char* master_array = master_grid.getCharTmpMap();
         unsigned int span = master_grid.getSizeInCellsX();
         unsigned char clear = to_cost(clear_threshold_), mark = to_cost(mark_threshold_);
+        unsigned int map_size = getMapSize();
+        unsigned char *tmp_costmap_;
+
+        tmp_costmap_ = new unsigned char[map_size];
 
         for (int j = min_j; j < max_j; j++)
         {
@@ -441,6 +445,7 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
             {
                 unsigned char prob = costmap_[it];
                 unsigned char current;
+                tmp_costmap_[it] = prob;
 
                 if (prob == costmap_2d::NO_INFORMATION)
                 {
@@ -470,6 +475,19 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
                 it++;
             }
         }
+
+        resetMaps();
+        for (int j = min_j; j < max_j; j++)
+        {
+            unsigned int it = j * span + min_i;
+            for (int i = min_i; i < max_i; i++)
+            {
+                costmap_[it] = tmp_costmap_[it];
+                it++;
+            }
+        }
+
+        delete[] tmp_costmap_;
 
         buffered_readings_ = 0;
         current_ = true;
