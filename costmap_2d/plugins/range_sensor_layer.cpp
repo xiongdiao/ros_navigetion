@@ -288,6 +288,7 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
         if (worldToMap(tx, ty, aa, ab))
         {
             setCost(aa, ab, 233);
+            setTmpCost(aa, ab, 233);
             touch(tx, ty, &min_x_, &min_y_, &max_x_, &max_y_);
         }
 
@@ -376,6 +377,7 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
             ROS_DEBUG("%f | %f %f | %f", prior, prob_occ, prob_not, new_prob);
             unsigned char c = to_cost(new_prob);
             setCost(x, y, c);
+            setTmpCost(x, y, c);
         }
     }
 
@@ -421,10 +423,12 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
 
     void RangeSensorLayer::updateCosts(costmap_2d::Costmap2D& master_grid, int min_i, int min_j, int max_i, int max_j)
     {
+        //ROS_ERROR("RangeSensorLayer::updateCosts enable: %d [%d %d %d %d]", enabled_, min_i, min_j, max_i, max_j);
         if (!enabled_)
           return;
 
         unsigned char* master_array = master_grid.getCharMap();
+        unsigned char* master_tmparray = master_grid.getCharTmpMap();
         unsigned int span = master_grid.getSizeInCellsX();
         unsigned char clear = to_cost(clear_threshold_), mark = to_cost(mark_threshold_);
 
@@ -435,25 +439,37 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
             {
                 unsigned char prob = costmap_[it];
                 unsigned char current;
+
+                if(prob != 0)
+                {
+                    //ROS_ERROR("get current prob/mark[%d %d]", prob, mark);
+                }
+
                 if (prob == costmap_2d::NO_INFORMATION)
                 {
                     it++;
                     continue;
                 }
                 else if (prob > mark)
-                  current = costmap_2d::LETHAL_OBSTACLE;
+                {
+                    current = costmap_2d::LETHAL_OBSTACLE;
+                }
                 else if (prob < clear)
-                  current = costmap_2d::FREE_SPACE;
+                {
+                    current = costmap_2d::FREE_SPACE;
+                }
                 else
                 {
                     it++;
                     continue;
                 }
 
-                unsigned char old_cost = master_array[it];
+                unsigned char old_cost = master_tmparray[it];
 
                 if (old_cost == NO_INFORMATION || old_cost < current)
-                  master_array[it] = current;
+                {
+                    master_tmparray[it] = current;
+                }
                 it++;
             }
         }
