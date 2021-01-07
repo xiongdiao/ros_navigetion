@@ -70,8 +70,8 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
             ROS_WARN("Empty topic names list: range sensor layer will have no effect on costmap");
         }
 
-        ROS_ERROR("onInitialize topic size: %d, ", topic_names.size());
         // Traverse the topic names list subscribing to all of them with the same callback method
+#if 0
         for (int i = 0; i < topic_names.size(); i++)
         {
             if (topic_names[i].getType() != XmlRpc::XmlRpcValue::TypeString)
@@ -103,6 +103,32 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
                 ROS_INFO("RangeSensorLayer: subscribed to topic %s", range_subs_.back().getTopic().c_str());
             }
         }
+#endif 
+#if 1
+        std::string topics_arry[] = { "/sonar0", "/sonar1", "/sonar2", "/sonar3"};
+        for (int i = 0; i < 4; i++)
+        {
+            std::string topic_name(topics_ns);
+            topic_name += topics_arry[i];
+
+            if (input_sensor_type == VARIABLE)
+              processRangeMessageFunc_ = boost::bind(&RangeSensorLayer::processVariableRangeMsg, this, _1);
+            else if (input_sensor_type == FIXED)
+              processRangeMessageFunc_ = boost::bind(&RangeSensorLayer::processFixedRangeMsg, this, _1);
+            else if (input_sensor_type == ALL)
+              processRangeMessageFunc_ = boost::bind(&RangeSensorLayer::processRangeMsg, this, _1);
+            else
+            {
+                ROS_ERROR(
+                            "%s: Invalid input sensor type: %s. Did you make a new type and forgot to choose the subscriber for it?",
+                            name_.c_str(), sensor_type_name.c_str());
+            }
+
+            range_subs_.push_back(nh.subscribe(topic_name, 100, &RangeSensorLayer::bufferIncomingRangeMsg, this));
+
+            ROS_INFO("    RangeSensorLayer: subscribed to topic %s", range_subs_.back().getTopic().c_str());
+        }
+#endif
 
         dsrv_ = new dynamic_reconfigure::Server<range_sensor_layer::RangeSensorLayerConfig>(nh);
         dynamic_reconfigure::Server<range_sensor_layer::RangeSensorLayerConfig>::CallbackType cb =
@@ -238,8 +264,10 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
 
         bool clear_sensor_cone = false;
 
-        if (range_message.range >= range_message.max_range && clear_on_max_reading_)
-          clear_sensor_cone = true;
+        if (range_message.range >= range_message.max_range)
+        {
+            clear_sensor_cone = true;
+        }
 
         updateCostmap(range_message, clear_sensor_cone);
     }
@@ -288,12 +316,12 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
 
         // Update Map with Target Point
         unsigned int aa, ab;
-        if (worldToMap(tx, ty, aa, ab) && (!clear_sensor_cone))
-        {
-            setCost(aa, ab, 233);
-            setTmpCost(aa, ab, 233);
-            touch(tx, ty, &min_x_, &min_y_, &max_x_, &max_y_);
-        }
+        //if (worldToMap(tx, ty, aa, ab) && (!clear_sensor_cone))
+        //{
+        //    setCost(aa, ab, 233);
+        //    setTmpCost(aa, ab, 233);
+        //    touch(tx, ty, &min_x_, &min_y_, &max_x_, &max_y_);
+        //}
 
         double mx, my;
 
@@ -355,7 +383,6 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
             }
         }
 
-        //if (worldToMap(tx, ty, aa, ab))
         if (worldToMap(tx, ty, aa, ab) && (!clear_sensor_cone))
         {
             setCost(aa, ab, 233);
