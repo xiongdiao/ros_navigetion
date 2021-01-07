@@ -125,8 +125,6 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
             }
 
             range_subs_.push_back(nh.subscribe(topic_name, 100, &RangeSensorLayer::bufferIncomingRangeMsg, this));
-
-            ROS_INFO("    RangeSensorLayer: subscribed to topic %s", range_subs_.back().getTopic().c_str());
         }
 #endif
 
