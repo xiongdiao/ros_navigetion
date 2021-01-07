@@ -125,7 +125,7 @@ PLUGINLIB_EXPORT_CLASS(costmap_2d::ObstacleLayer, costmap_2d::Layer)
                 source_node.getParam(raytrace_range_param_name, raytrace_range);
             }
 
-            ROS_DEBUG("Creating an observation buffer for source %s, topic %s, frame %s", source.c_str(), topic.c_str(),
+            ROS_INFO("Creating an observation buffer for source %s, topic %s, frame %s", source.c_str(), topic.c_str(),
                         sensor_frame.c_str());
 
             // create an observation buffer

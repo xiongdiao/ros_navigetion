@@ -70,6 +70,7 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
             ROS_WARN("Empty topic names list: range sensor layer will have no effect on costmap");
         }
 
+        ROS_ERROR("onInitialize topic size: %d, ", topic_names.size());
         // Traverse the topic names list subscribing to all of them with the same callback method
         for (int i = 0; i < topic_names.size(); i++)
         {
@@ -160,8 +161,10 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
     {
         phi_v_ = config.phi;
         inflate_cone_ = config.inflate_cone;
+        //inflate_cone_ = 0.2;
         no_readings_timeout_ = config.no_readings_timeout;
         clear_threshold_ = config.clear_threshold;
+        inflate_cone_ = clear_threshold_;
         mark_threshold_ = config.mark_threshold;
         clear_on_max_reading_ = config.clear_on_max_reading;
 
@@ -230,12 +233,12 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
 
     void RangeSensorLayer::processVariableRangeMsg(sensor_msgs::Range& range_message)
     {
-        if (range_message.range < range_message.min_range || range_message.range > range_message.max_range)
-          return;
+        //if (range_message.range < range_message.min_range || range_message.range > range_message.max_range)
+        //  return;
 
         bool clear_sensor_cone = false;
 
-        if (range_message.range == range_message.max_range && clear_on_max_reading_)
+        if (range_message.range >= range_message.max_range && clear_on_max_reading_)
           clear_sensor_cone = true;
 
         updateCostmap(range_message, clear_sensor_cone);
@@ -285,7 +288,7 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
 
         // Update Map with Target Point
         unsigned int aa, ab;
-        if (worldToMap(tx, ty, aa, ab))
+        if (worldToMap(tx, ty, aa, ab) && (!clear_sensor_cone))
         {
             setCost(aa, ab, 233);
             setTmpCost(aa, ab, 233);
@@ -352,6 +355,14 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
             }
         }
 
+        //if (worldToMap(tx, ty, aa, ab))
+        if (worldToMap(tx, ty, aa, ab) && (!clear_sensor_cone))
+        {
+            setCost(aa, ab, 233);
+            setTmpCost(aa, ab, 233);
+            touch(tx, ty, &min_x_, &min_y_, &max_x_, &max_y_);
+        }
+
         buffered_readings_++;
         last_reading_time_ = ros::Time::now();
     }
@@ -375,6 +386,7 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
 
             ROS_DEBUG("%f %f | %f %f = %f", dx, dy, theta, phi, sensor);
             ROS_DEBUG("%f | %f %f | %f", prior, prob_occ, prob_not, new_prob);
+            new_prob = 0;
             unsigned char c = to_cost(new_prob);
             setCost(x, y, c);
             setTmpCost(x, y, c);
@@ -402,6 +414,7 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
         *max_x = std::max(*max_x, max_x_);
         *max_y = std::max(*max_y, max_y_);
 
+
         resetRange();
 
         if (!enabled_)
@@ -425,7 +438,7 @@ PLUGINLIB_EXPORT_CLASS(range_sensor_layer::RangeSensorLayer, costmap_2d::Layer)
 
     void RangeSensorLayer::updateCosts(costmap_2d::Costmap2D& master_grid, int min_i, int min_j, int max_i, int max_j)
     {
-        //ROS_ERROR("RangeSensorLayer::updateCosts enable: %d [%d %d %d %d]", enabled_, min_i, min_j, max_i, max_j);
+        //ROS_ERROR("RangeSensorLayer::updateCosts enable: %d [%d %d %d %d] [%f]", enabled_, min_i, min_j, max_i, max_j, inflate_cone_);
         if (!enabled_)
           return;
 
