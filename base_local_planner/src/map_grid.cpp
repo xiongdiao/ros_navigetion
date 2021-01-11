@@ -232,7 +232,13 @@ namespace base_local_planner{
                     break;
                 }// else we might have a non pruned path, so we just continue
             }
+            /* U型路线导致局部路径目标点于当前坐标太近，无法按照导航行走，数值与局部地图分辨率相关，目前250可解决遇到的问题*/
+            if(i > 250 && started_path)
+            {
+                break;
+            }
         }
+
         if (!started_path) {
             ROS_ERROR("None of the points of the global plan were in the local costmap, global plan points too far from robot");
             return;
