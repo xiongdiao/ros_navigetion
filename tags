@@ -193,9 +193,9 @@ MapClientTest	map_server/test/rtest.cpp	/^class MapClientTest : public testing::
 MapGenerator	map_server/src/map_saver.cpp	/^    MapGenerator(const std::string& mapname, int threshold_occupied, int threshold_free)$/;"	f	class:MapGenerator
 MapGenerator	map_server/src/map_saver.cpp	/^class MapGenerator$/;"	c	file:
 MapGrid	base_local_planner/include/base_local_planner/map_grid.h	/^  class MapGrid{$/;"	c	namespace:base_local_planner
-MapGrid	base_local_planner/src/map_grid.cpp	/^  MapGrid::MapGrid()$/;"	f	class:base_local_planner::MapGrid
-MapGrid	base_local_planner/src/map_grid.cpp	/^  MapGrid::MapGrid(const MapGrid& mg){$/;"	f	class:base_local_planner::MapGrid
-MapGrid	base_local_planner/src/map_grid.cpp	/^  MapGrid::MapGrid(unsigned int size_x, unsigned int size_y) $/;"	f	class:base_local_planner::MapGrid
+MapGrid	base_local_planner/src/map_grid.cpp	/^    MapGrid::MapGrid()$/;"	f	class:base_local_planner::MapGrid
+MapGrid	base_local_planner/src/map_grid.cpp	/^    MapGrid::MapGrid(const MapGrid& mg){$/;"	f	class:base_local_planner::MapGrid
+MapGrid	base_local_planner/src/map_grid.cpp	/^    MapGrid::MapGrid(unsigned int size_x, unsigned int size_y) $/;"	f	class:base_local_planner::MapGrid
 MapGridCostFunction	base_local_planner/include/base_local_planner/map_grid_cost_function.h	/^class MapGridCostFunction: public base_local_planner::TrajectoryCostFunction {$/;"	c	namespace:base_local_planner
 MapGridCostFunction	base_local_planner/src/map_grid_cost_function.cpp	/^    MapGridCostFunction::MapGridCostFunction(costmap_2d::Costmap2D* costmap,$/;"	f	class:base_local_planner::MapGridCostFunction
 MapGridVisualizer	base_local_planner/include/base_local_planner/map_grid_visualizer.h	/^    class MapGridVisualizer {$/;"	c	namespace:base_local_planner
@@ -536,7 +536,7 @@ addPoint	base_local_planner/src/trajectory.cpp	/^  void Trajectory::addPoint(dou
 addStaticLayer	costmap_2d/include/costmap_2d/testing_helper.h	/^void addStaticLayer(costmap_2d::LayeredCostmap& layers, tf2_ros::Buffer& tf)$/;"	f
 addStaticObservation	costmap_2d/plugins/obstacle_layer.cpp	/^    void ObstacleLayer::addStaticObservation(costmap_2d::Observation& obs, bool marking, bool clearing)$/;"	f	class:costmap_2d::ObstacleLayer
 add_generic_localplanner_params	base_local_planner/src/local_planner_limits/__init__.py	/^def add_generic_localplanner_params(gen):$/;"	f
-adjustPlanResolution	base_local_planner/src/map_grid.cpp	/^  void MapGrid::adjustPlanResolution(const std::vector<geometry_msgs::PoseStamped>& global_plan_in,$/;"	f	class:base_local_planner::MapGrid
+adjustPlanResolution	base_local_planner/src/map_grid.cpp	/^    void MapGrid::adjustPlanResolution(const std::vector<geometry_msgs::PoseStamped>& global_plan_in,$/;"	f	class:base_local_planner::MapGrid
 advance	base_local_planner/include/base_local_planner/line_iterator.h	/^  void advance()$/;"	f	class:base_local_planner::LineIterator
 affected_maps_	clear_costmap_recovery/include/clear_costmap_recovery/clear_costmap_recovery.h	/^      std::string affected_maps_; \/\/\/< clear only local, global or both costmaps$/;"	m	class:clear_costmap_recovery::ClearCostmapRecovery
 aggregationType_	base_local_planner/include/base_local_planner/map_grid_cost_function.h	/^  CostAggregationType aggregationType_;$/;"	m	class:base_local_planner::MapGridCostFunction
@@ -739,7 +739,7 @@ cmap_	navfn/src/navfn_node.cpp	/^  Costmap2DROS* cmap_;$/;"	m	class:navfn::Navfn
 combination_method_	costmap_2d/include/costmap_2d/obstacle_layer.h	/^  int combination_method_;$/;"	m	class:costmap_2d::ObstacleLayer
 combo_enum	costmap_2d/cfg/ObstaclePlugin.cfg	/^combo_enum = gen.enum([gen.const("Overwrite", int_t,  0, "Overwrite values"),$/;"	v
 combo_enum	costmap_2d/cfg/VoxelPlugin.cfg	/^combo_enum = gen.enum([gen.const("Overwrite", int_t,  0, "Overwrite values"),$/;"	v
-commonInit	base_local_planner/src/map_grid.cpp	/^  void MapGrid::commonInit(){$/;"	f	class:base_local_planner::MapGrid
+commonInit	base_local_planner/src/map_grid.cpp	/^    void MapGrid::commonInit(){$/;"	f	class:base_local_planner::MapGrid
 compareCellToNeighbors	costmap_2d/test/costmap_tester.cpp	/^void CostmapTester::compareCellToNeighbors(costmap_2d::Costmap2D& costmap, unsigned int x, unsigned int y){$/;"	f	class:costmap_2d::CostmapTester
 compareCells	costmap_2d/test/costmap_tester.cpp	/^void CostmapTester::compareCells(costmap_2d::Costmap2D& costmap, unsigned int x, unsigned int y, unsigned int nx, unsigned int ny){$/;"	f	class:costmap_2d::CostmapTester
 computeCaches	costmap_2d/plugins/inflation_layer.cpp	/^    void InflationLayer::computeCaches()$/;"	f	class:costmap_2d::InflationLayer
@@ -751,7 +751,7 @@ computeNewVelocity	base_local_planner/include/base_local_planner/trajectory_plan
 computeNewXPosition	base_local_planner/include/base_local_planner/trajectory_planner.h	/^      inline double computeNewXPosition(double xi, double vx, double vy, double theta, double dt){$/;"	f	class:base_local_planner::TrajectoryPlanner
 computeNewYPosition	base_local_planner/include/base_local_planner/trajectory_planner.h	/^      inline double computeNewYPosition(double yi, double vx, double vy, double theta, double dt){$/;"	f	class:base_local_planner::TrajectoryPlanner
 computePotential	navfn/src/navfn_ros.cpp	/^  bool NavfnROS::computePotential(const geometry_msgs::Point& world_point){$/;"	f	class:navfn::NavfnROS
-computeTargetDistance	base_local_planner/src/map_grid.cpp	/^  void MapGrid::computeTargetDistance(queue<MapCell*>& dist_queue, const costmap_2d::Costmap2D& costmap){$/;"	f	class:base_local_planner::MapGrid
+computeTargetDistance	base_local_planner/src/map_grid.cpp	/^    void MapGrid::computeTargetDistance(queue<MapCell*>& dist_queue, const costmap_2d::Costmap2D& costmap){$/;"	f	class:base_local_planner::MapGrid
 computeVelocityCommands	base_local_planner/src/trajectory_planner_ros.cpp	/^  bool TrajectoryPlannerROS::computeVelocityCommands(geometry_msgs::Twist& cmd_vel){$/;"	f	class:base_local_planner::TrajectoryPlannerROS
 computeVelocityCommands	dwa_local_planner/src/dwa_planner_ros.cpp	/^            bool DWAPlannerROS::computeVelocityCommands(geometry_msgs::Twist& cmd_vel) {$/;"	f	class:dwa_local_planner::DWAPlannerROS
 computeVelocityCommandsStopRotate	base_local_planner/src/latched_stop_rotate_controller.cpp	/^bool LatchedStopRotateController::computeVelocityCommandsStopRotate(geometry_msgs::Twist& cmd_vel,$/;"	f	class:base_local_planner::LatchedStopRotateController
@@ -1083,7 +1083,7 @@ getGoal	base_local_planner/src/local_planner_util.cpp	/^bool LocalPlannerUtil::g
 getGoalOrientationAngleDifference	base_local_planner/src/goal_functions.cpp	/^  double getGoalOrientationAngleDifference(const geometry_msgs::PoseStamped& global_pose, double goal_th) {$/;"	f	namespace:base_local_planner
 getGoalPose	base_local_planner/src/goal_functions.cpp	/^  bool getGoalPose(const tf2_ros::Buffer& tf,$/;"	f	namespace:base_local_planner
 getGoalPositionDistance	base_local_planner/src/goal_functions.cpp	/^  double getGoalPositionDistance(const geometry_msgs::PoseStamped& global_pose, double goal_x, double goal_y) {$/;"	f	namespace:base_local_planner
-getIndex	base_local_planner/src/map_grid.cpp	/^  size_t MapGrid::getIndex(int x, int y){$/;"	f	class:base_local_planner::MapGrid
+getIndex	base_local_planner/src/map_grid.cpp	/^    size_t MapGrid::getIndex(int x, int y){$/;"	f	class:base_local_planner::MapGrid
 getIndex	costmap_2d/include/costmap_2d/costmap_2d.h	/^  inline unsigned int getIndex(unsigned int mx, unsigned int my) const$/;"	f	class:costmap_2d::Costmap2D
 getIndex	global_planner/include/global_planner/traceback.h	/^        inline int getIndex(int x, int y) {$/;"	f	class:global_planner::Traceback
 getInscribedRadius	costmap_2d/include/costmap_2d/layered_costmap.h	/^  double getInscribedRadius() { return inscribed_radius_; }$/;"	f	class:costmap_2d::LayeredCostmap
@@ -1715,7 +1715,7 @@ operator ()	voxel_grid/include/voxel_grid/voxel_grid.h	/^    inline void operato
 operator ()	voxel_grid/include/voxel_grid/voxel_grid.h	/^    inline void operator()(unsigned int offset, unsigned int z_mask)$/;"	f	class:voxel_grid::VoxelGrid::MarkVoxel
 operator ++	base_local_planner/include/base_local_planner/velocity_iterator.h	/^      VelocityIterator& operator++(int){$/;"	f	class:base_local_planner::VelocityIterator
 operator <	amcl/src/amcl/map/map_cspace.cpp	/^bool operator<(const CellData& a, const CellData& b)$/;"	f
-operator =	base_local_planner/src/map_grid.cpp	/^  MapGrid& MapGrid::operator= (const MapGrid& mg){$/;"	f	class:base_local_planner::MapGrid
+operator =	base_local_planner/src/map_grid.cpp	/^    MapGrid& MapGrid::operator= (const MapGrid& mg){$/;"	f	class:base_local_planner::MapGrid
 operator =	costmap_2d/src/costmap_2d.cpp	/^    Costmap2D& Costmap2D::operator=(const Costmap2D& map)$/;"	f	class:costmap_2d::Costmap2D
 operator >>	map_server/src/main.cpp	/^void operator >> (const YAML::Node& node, T& i)$/;"	f
 orient	base_local_planner/include/base_local_planner/point_grid.h	/^      inline double orient(const T& a, const T& b, const T& c){$/;"	f	class:base_local_planner::PointGrid
@@ -2036,7 +2036,7 @@ resetMaps	costmap_2d/plugins/voxel_layer.cpp	/^void VoxelLayer::resetMaps()$/;"	
 resetMaps	costmap_2d/src/costmap_2d.cpp	/^    void Costmap2D::resetMaps()$/;"	f	class:costmap_2d::Costmap2D
 resetOscillationFlags	base_local_planner/src/oscillation_cost_function.cpp	/^    void OscillationCostFunction::resetOscillationFlags() {$/;"	f	class:base_local_planner::OscillationCostFunction
 resetOscillationFlagsIfPossible	base_local_planner/src/oscillation_cost_function.cpp	/^    void OscillationCostFunction::resetOscillationFlagsIfPossible(const Eigen::Vector3f& pos, const Eigen::Vector3f& prev) {$/;"	f	class:base_local_planner::OscillationCostFunction
-resetPathDist	base_local_planner/src/map_grid.cpp	/^  void MapGrid::resetPathDist(){$/;"	f	class:base_local_planner::MapGrid
+resetPathDist	base_local_planner/src/map_grid.cpp	/^    void MapGrid::resetPathDist(){$/;"	f	class:base_local_planner::MapGrid
 resetPoints	base_local_planner/src/trajectory.cpp	/^  void Trajectory::resetPoints(){$/;"	f	class:base_local_planner::Trajectory
 resetRange	costmap_2d/plugins/range_sensor_layer.cpp	/^    void RangeSensorLayer::resetRange()$/;"	f	class:range_sensor_layer::RangeSensorLayer
 resetState	move_base/src/move_base.cpp	/^    void MoveBase::resetState(){$/;"	f	class:move_base::MoveBase
@@ -2129,7 +2129,7 @@ setHasUnknown	global_planner/include/global_planner/expander.h	/^        void se
 setInflationParameters	costmap_2d/plugins/inflation_layer.cpp	/^    void InflationLayer::setInflationParameters(double inflation_radius, double cost_scaling_factor)$/;"	f	class:costmap_2d::InflationLayer
 setLethalCost	global_planner/include/global_planner/expander.h	/^        void setLethalCost(unsigned char lethal_cost) {$/;"	f	class:global_planner::Expander
 setLethalCost	global_planner/include/global_planner/traceback.h	/^        void setLethalCost(unsigned char lethal_cost) {$/;"	f	class:global_planner::Traceback
-setLocalGoal	base_local_planner/src/map_grid.cpp	/^  void MapGrid::setLocalGoal(const costmap_2d::Costmap2D& costmap,$/;"	f	class:base_local_planner::MapGrid
+setLocalGoal	base_local_planner/src/map_grid.cpp	/^    void MapGrid::setLocalGoal(const costmap_2d::Costmap2D& costmap,$/;"	f	class:base_local_planner::MapGrid
 setMapCallback	amcl/src/amcl_node.cpp	/^AmclNode::setMapCallback(nav_msgs::SetMap::Request& req,$/;"	f	class:AmclNode
 setMode	global_planner/include/global_planner/orientation_filter.h	/^        void setMode(OrientationMode new_mode){ omode_ = new_mode; }$/;"	f	class:global_planner::OrientationFilter
 setMode	global_planner/include/global_planner/orientation_filter.h	/^        void setMode(int new_mode){ setMode((OrientationMode) new_mode); }$/;"	f	class:global_planner::OrientationFilter
@@ -2160,7 +2160,7 @@ setStart	navfn/src/navfn.cpp	/^    NavFn::setStart(int *g)$/;"	f	class:navfn::Na
 setStopOnFailure	base_local_planner/include/base_local_planner/map_grid_cost_function.h	/^  void setStopOnFailure(bool stop_on_failure) {stop_on_failure_ = stop_on_failure;}$/;"	f	class:base_local_planner::MapGridCostFunction
 setStruct	costmap_2d/include/costmap_2d/costmap_2d_ros.h	/^  void setStruct(XmlRpc::XmlRpcValue::ValueStruct* a)$/;"	f	class:SuperValue
 setSumScores	base_local_planner/include/base_local_planner/obstacle_cost_function.h	/^  void setSumScores(bool score_sums){ sum_scores_=score_sums; }$/;"	f	class:base_local_planner::ObstacleCostFunction
-setTargetCells	base_local_planner/src/map_grid.cpp	/^  void MapGrid::setTargetCells(const costmap_2d::Costmap2D& costmap,$/;"	f	class:base_local_planner::MapGrid
+setTargetCells	base_local_planner/src/map_grid.cpp	/^    void MapGrid::setTargetCells(const costmap_2d::Costmap2D& costmap,$/;"	f	class:base_local_planner::MapGrid
 setTargetPoses	base_local_planner/src/map_grid_cost_function.cpp	/^    void MapGridCostFunction::setTargetPoses(std::vector<geometry_msgs::PoseStamped> target_poses) {$/;"	f	class:base_local_planner::MapGridCostFunction
 setTmpCost	costmap_2d/src/costmap_2d.cpp	/^    void Costmap2D::setTmpCost(unsigned int mx, unsigned int my, unsigned char cost)$/;"	f	class:costmap_2d::Costmap2D
 setUnpaddedRobotFootprint	costmap_2d/src/costmap_2d_ros.cpp	/^    void Costmap2DROS::setUnpaddedRobotFootprint(const std::vector<geometry_msgs::Point>& points)$/;"	f	class:costmap_2d::Costmap2DROS
@@ -2206,7 +2206,7 @@ sim_time_	base_local_planner/include/base_local_planner/simple_trajectory_genera
 sim_time_	base_local_planner/include/base_local_planner/trajectory_planner.h	/^      double sim_time_; \/\/\/< @brief The number of seconds each trajectory is "rolled-out"$/;"	m	class:base_local_planner::TrajectoryPlanner
 simple_attractor_	base_local_planner/include/base_local_planner/trajectory_planner.h	/^      bool simple_attractor_;  \/\/\/< @brief Enables simple attraction to a goal point$/;"	m	class:base_local_planner::TrajectoryPlanner
 size	amcl/include/amcl/pf/pf_kdtree.h	/^  double size[3];$/;"	m	struct:__anon8
-sizeCheck	base_local_planner/src/map_grid.cpp	/^  void MapGrid::sizeCheck(unsigned int size_x, unsigned int size_y){$/;"	f	class:base_local_planner::MapGrid
+sizeCheck	base_local_planner/src/map_grid.cpp	/^    void MapGrid::sizeCheck(unsigned int size_x, unsigned int size_y){$/;"	f	class:base_local_planner::MapGrid
 sizeX	voxel_grid/src/voxel_grid.cpp	/^  unsigned int VoxelGrid::sizeX(){$/;"	f	class:voxel_grid::VoxelGrid
 sizeY	voxel_grid/src/voxel_grid.cpp	/^  unsigned int VoxelGrid::sizeY(){$/;"	f	class:voxel_grid::VoxelGrid
 sizeZ	voxel_grid/src/voxel_grid.cpp	/^  unsigned int VoxelGrid::sizeZ(){$/;"	f	class:voxel_grid::VoxelGrid
@@ -2383,7 +2383,7 @@ updateMap	costmap_2d/src/layered_costmap.cpp	/^    void LayeredCostmap::updateMa
 updateOrigin	costmap_2d/plugins/voxel_layer.cpp	/^void VoxelLayer::updateOrigin(double new_origin_x, double new_origin_y)$/;"	f	class:costmap_2d::VoxelLayer
 updateOrigin	costmap_2d/src/costmap_2d.cpp	/^    void Costmap2D::updateOrigin(double new_origin_x, double new_origin_y)$/;"	f	class:costmap_2d::Costmap2D
 updateOscillationFlags	base_local_planner/src/oscillation_cost_function.cpp	/^    void OscillationCostFunction::updateOscillationFlags(Eigen::Vector3f pos, base_local_planner::Trajectory* traj, double min_vel_trans) {$/;"	f	class:base_local_planner::OscillationCostFunction
-updatePathCell	base_local_planner/src/map_grid.cpp	/^  inline bool MapGrid::updatePathCell(MapCell* current_cell, MapCell* check_cell,$/;"	f	class:base_local_planner::MapGrid
+updatePathCell	base_local_planner/src/map_grid.cpp	/^    inline bool MapGrid::updatePathCell(MapCell* current_cell, MapCell* check_cell,$/;"	f	class:base_local_planner::MapGrid
 updatePlan	base_local_planner/src/trajectory_planner.cpp	/^  void TrajectoryPlanner::updatePlan(const vector<geometry_msgs::PoseStamped>& new_plan, bool compute_dists){$/;"	f	class:base_local_planner::TrajectoryPlanner
 updatePlanAndLocalCosts	dwa_local_planner/src/dwa_planner.cpp	/^  void DWAPlanner::updatePlanAndLocalCosts($/;"	f	class:dwa_local_planner::DWAPlanner
 updatePoseFromServer	amcl/src/amcl_node.cpp	/^void AmclNode::updatePoseFromServer()$/;"	f	class:AmclNode

@@ -186,6 +186,7 @@ PLUGINLIB_EXPORT_CLASS(dwa_local_planner::DWAPlannerROS, nav_core::BaseLocalPlan
 
 
             bool DWAPlannerROS::dwaComputeVelocityCommands(geometry_msgs::PoseStamped &global_pose, geometry_msgs::Twist& cmd_vel) {
+                static double old_z = 0;
                 // dynamic window sampling approach to get useful velocity commands
                 if(! isInitialized()){
                     ROS_ERROR("This planner has not been initialized, please call initialize() before using this planner");
@@ -234,8 +235,21 @@ PLUGINLIB_EXPORT_CLASS(dwa_local_planner::DWAPlannerROS, nav_core::BaseLocalPlan
                     return false;
                 }
 
-                ROS_DEBUG_NAMED("dwa_local_planner", "A valid velocity command of (%.2f, %.2f, %.2f) was found for this cycle.", 
-                            cmd_vel.linear.x, cmd_vel.linear.y, cmd_vel.angular.z);
+                ROS_DEBUG_NAMED("dwa_local_planner", "A valid velocity command of (%.2f, %.2f, %.2f) was found for this cycle.", cmd_vel.linear.x, cmd_vel.linear.y, cmd_vel.angular.z);
+
+                if(cmd_vel.linear.x < 0)
+                {
+                    cmd_vel.linear.x = 0;
+                    if(cmd_vel.angular.z == 0 && old_z != 0)
+                    {
+                        cmd_vel.angular.z = old_z;
+                    }
+                    else
+                    {
+                        cmd_vel.angular.z = 0.5;
+                    }
+                }
+                old_z = cmd_vel.angular.z;
 
                 // Fill out the local plan
                 for(unsigned int i = 0; i < path.getPointsSize(); ++i) {

@@ -214,12 +214,13 @@ namespace base_local_planner{
         int local_goal_x = -1;
         int local_goal_y = -1;
         bool started_path = false;
+        unsigned int i = 0;
 
         std::vector<geometry_msgs::PoseStamped> adjusted_global_plan;
         adjustPlanResolution(global_plan, adjusted_global_plan, costmap.getResolution());
 
         // skip global path points until we reach the border of the local map
-        for (unsigned int i = 0; i < adjusted_global_plan.size(); ++i) {
+        for (i = 0; i < adjusted_global_plan.size(); ++i) {
             double g_x = adjusted_global_plan[i].pose.position.x;
             double g_y = adjusted_global_plan[i].pose.position.y;
             unsigned int map_x, map_y;
@@ -232,8 +233,8 @@ namespace base_local_planner{
                     break;
                 }// else we might have a non pruned path, so we just continue
             }
-            /* U型路线导致局部路径目标点于当前坐标太近，无法按照导航行走，数值与局部地图分辨率相关，目前250可解决遇到的问题*/
-            if(i > 250 && started_path)
+            /* U type global path will make a error local plan result, 250 will temply kill this error*/
+            if(i > 150 && started_path)
             {
                 break;
             }
